@@ -86,7 +86,7 @@ async function Execute(target, ig, komen, latest_id)
               const userFeed = ig.feed.user(id);
               const myPostsFirstPage = await userFeed.items();
               const latest_id = myPostsFirstPage[0].id
-              await delay(1500)
+              await delay(300)
                 const gas = await Promise.all([
                     Execute(param, ig, komen, latest_id)
                 ])
