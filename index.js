@@ -22,11 +22,12 @@ async function Execute(target, ig, komen, latest_id)
                 try{
                   const start = await ig.media.comment({mediaId: latest_id, text: komen})
                   console.log(`[ ${moment().format('HH:mm:ss')} ] [SUKSES KOMEN @${target}] [${komen}]`)
-                  fs.writeFileSync('./target/' + target + '.txt', latest_id);
+                  
                 }catch(err)
                 {
                   console.log(`[ ${moment().format('HH:mm:ss')} ] [FAILED KOMEN @${target}] [${err.toString()}]`)
                 }
+                fs.writeFileSync('./target/' + target + '.txt', latest_id);
             }else{
                 console.log(`[ ${moment().format('HH:mm:ss')} ] TIDAK MENEMUKAN POST BARU`, target)
             }
@@ -42,11 +43,14 @@ async function Execute(target, ig, komen, latest_id)
   
   try{
     let enabled = 0 ;
+    let checking = 0;
+    let starting = 0;
     console.log(`FRIST COMMENT CREATED BY AREL TIYAN\nSGB TEAM 2020\nCEK komen.txt DENGAN PEMISAH |\n`)
     const user_name   = readlineSync.question("Username : ")
     const pass_word   = readlineSync.question("Password : ")
     var tar_get       = readlineSync.question("Target (Pakai , Jika lebih dari 1) : ").split(',')
     var jeda          = readlineSync.question("Jeda Berapa Detik : ")
+    var jeda_limit          = readlineSync.question("Jika Limit Kasih Jeda Berapa Detik? : ")
     ig.state.generateDevice(user_name);
     await ig.simulate.preLoginFlow();
 
@@ -58,6 +62,11 @@ async function Execute(target, ig, komen, latest_id)
     {
      
       try{
+        if(checking == 1){
+          console.log(`Delay ${jeda_limit} detik karena LIMIT`)
+          await delay(`${jeda_limit}000`)
+          checking = 0;
+        }
         if(i == tar_get.length - 1) 
         {
           enabled = 1
@@ -69,7 +78,8 @@ async function Execute(target, ig, komen, latest_id)
         console.log('Checking latest media_id', tar_get[i])
       }catch(err)
       {
-        console.log(tar_get[i], err)
+        if(err.toString().includes('before you try again.')) checking = 1;
+        console.log(tar_get[i], err.toString())
       }
       
 
@@ -78,6 +88,11 @@ async function Execute(target, ig, komen, latest_id)
     if(enabled == 1)
     {
       while(true){
+        if(starting == 1){
+          console.log(`Delay ${jeda_limit} detik karena LIMIT`)
+          await delay(`${jeda_limit}000`)
+          starting = 0;
+        }
         tar_get.map(async function(param, index)
         {
             try{
@@ -90,6 +105,7 @@ async function Execute(target, ig, komen, latest_id)
               await Execute(param, ig, komen, latest_id)
             }catch(err)
             {
+              if(err.toString().includes('before you try again.')) starting = 1;
                 console.log(err.toString())
             }
             
