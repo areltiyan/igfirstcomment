@@ -1,0 +1,27 @@
+{
+  "name": "ig-tools",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "delay": "^4.3.0",
+    "fs": "^0.0.1-security",
+    "instagram-private-api": "^1.40.1",
+    "moment": "^2.26.0",
+    "readline-sync": "^1.4.10"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/areltiyan/ig-firstcomment.git"
+  },
+  "author": "AREL TIYAN",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/areltiyan/ig-firstcomment/issues"
+  },
+  "homepage": "https://github.com/areltiyan/ig-firstcomment#readme"
+}
