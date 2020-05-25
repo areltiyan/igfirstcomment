@@ -56,12 +56,16 @@ async function Execute(target, ig, komen, latest_id)
     
     for(let i = 0;i < tar_get.length;i++)
     {
+      if(i == tar_get.length - 1) 
+      {
+        enabled = 1
+      }
       const id = await ig.user.getIdByUsername(tar_get[i]);
       const userFeed = ig.feed.user(id);
       const myPostsFirstPage = await userFeed.items();
       fs.writeFileSync('./target/' + tar_get[i] + '.txt', myPostsFirstPage[0].id);
       console.log('Checking latest media_id', tar_get[i])
-      if(i == tar_get.length - 1) enabled = 1
+
     }
 
     if(enabled == 1)
