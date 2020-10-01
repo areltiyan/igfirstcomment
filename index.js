@@ -57,12 +57,13 @@ const moment = require('moment');
               const komen = read_komen[parseInt(Math.random() * read_komen.length)]
               await ig.media.comment({ mediaId: latestPost, text: komen })
               console.log(`[ ${moment().format('HH:mm:ss')} ] [SUKSES KOMEN @${target}] [${komen}]`)
+              temporaryData[key] = latestPost
             } catch (err) {
               console.log(`[ ${moment().format('HH:mm:ss')} ] [FAILED KOMEN @${target}] [${err.toString()}]`)
             }
           }
 
-          await delay(sleep)
+          await delay(sleep * 1000)
         }
       } catch (err) {
         if (err.toString().includes('before you try again.')) { isLimit = true }
