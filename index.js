@@ -21,7 +21,7 @@ const moment = require('moment');
     const limitSleep = readlineSync.question("Jika Limit Kasih Jeda Berapa Detik? (s): ")
 
 
-    ig.state.generateDevice(user_name);
+    ig.state.generateDevice(usernameInstagram);
     await ig.simulate.preLoginFlow();
     await ig.account.login(usernameInstagram, passwordInstagram);
 
